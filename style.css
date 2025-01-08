@@ -1,0 +1,205 @@
+/* تنظیمات کلی */
+body {
+    font-family: "Tahoma", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    direction: rtl;
+}
+
+/* استایل بخش ورود */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.login-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 14px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #218838;
+}
+
+.error-message {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* استایل صفحه مدیریت وظایف */
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+header button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+header button:hover {
+    background-color: #c82333;
+}
+
+main {
+    padding: 20px;
+}
+
+.task-form, .task-list {
+    background-color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.task-form h2, .task-list h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.task-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 14px;
+}
+
+.task-form input, .task-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.task-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.task-form button:hover {
+    background-color: #0056b3;
+}
+
+.task-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.task-list li {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-list li span {
+    font-size: 14px;
+}
+
+.task-list li .actions button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.task-list li .actions .edit-btn {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.task-list li .actions .edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.task-list li .actions .delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.task-list li .actions .delete-btn:hover {
+    background-color: #c82333;
+}
+footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

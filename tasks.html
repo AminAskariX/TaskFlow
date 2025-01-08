@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - مدیریت وظایف</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>مدیریت وظایف ✅📅</h1>
+        <button id="logoutButton">خروج</button>
+    </header>
+    
+    <main>
+        <section class="task-form">
+            <h2>وظیفه جدید</h2>
+            <form id="taskForm">
+                <label for="taskTitle">عنوان وظیفه:</label>
+                <input type="text" id="taskTitle" name="taskTitle" required>
+                
+                <label for="taskPriority">اولویت:</label>
+                <select id="taskPriority" name="taskPriority" required>
+                    <option value="low">کم</option>
+                    <option value="medium">متوسط</option>
+                    <option value="high">زیاد</option>
+                </select>
+                
+                <label for="taskDueDate">تاریخ سررسید:</label>
+                <input type="date" id="taskDueDate" name="taskDueDate" required>
+                
+                <label for="taskTime">زمان سررسید:</label>
+                <input type="time" id="taskTime" name="taskTime" required>
+                
+                <button type="submit">اضافه کردن وظیفه</button>
+            </form>
+        </section>
+
+        <section class="task-list">
+            <h2>لیست وظایف</h2>
+            <ul id="tasksContainer">
+                <!-- وظایف ایجادشده در اینجا نمایش داده خواهند شد -->
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>توسعه داده شده توسط <a href="https://aminaskarix.ir" target="_blank">م.امین عسکری</a></p>
+        <p><a href="https://github.com/AminAskariX/TaskFlow/" target="_blank">مشاهده پروژه در گیت‌هاب</a></p>
+    </footer>
+    <script src="app.js"></script>
+    <script src="dataHandler.js"></script>
+</body>
+</html>
