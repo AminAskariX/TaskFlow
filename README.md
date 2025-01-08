@@ -1,6 +1,6 @@
 # TaskFlow ✅📅
 
-## معرفی پروژه (فارسی)
+## معرفی پروژه
 TaskFlow یک اپلیکیشن مدیریت وظایف خلاقانه و پویا است که به کاربران امکان می‌دهد وظایف خود را به صورت مؤثر مدیریت کنند. این اپلیکیشن به شما امکانات زیر را ارائه می‌دهد:
 
 - **مدیریت وظایف:** ثبت، ویرایش و حذف وظایف.
@@ -17,7 +17,7 @@ TaskFlow یک اپلیکیشن مدیریت وظایف خلاقانه و پوی�
 
 ---
 
-## Project Overview (English)
+## Project Overview 
 TaskFlow is an innovative and dynamic task management application that enables users to efficiently organize their tasks. The application offers the following features:
 
 - **Task Management:** Add, edit, and delete tasks.
@@ -55,7 +55,7 @@ TaskFlow/
 
 ## نحوه استفاده (How to Use)
 
-### فارسی:
+
 1. پروژه را دانلود یا کلون کنید:
    ```bash
    git clone https://github.com/AminAskariX/TaskFlow.git
@@ -64,7 +64,7 @@ TaskFlow/
 3. با وارد کردن نام کاربری و رمز عبور وارد شوید (اطلاعات پیش‌فرض: `admin` و `1234`).
 4. وظایف خود را اضافه، ویرایش یا حذف کنید.
 
-### English:
+
 1. Download or clone the project:
    ```bash
    git clone https://github.com/AminAskariX/TaskFlow.git
