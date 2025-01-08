@@ -5,9 +5,9 @@ TaskFlow یک اپلیکیشن مدیریت وظایف خلاقانه و پوی�
 
 - **مدیریت وظایف:** ثبت، ویرایش و حذف وظایف.
 - **اولویت‌بندی:** تعیین اولویت وظایف به صورت کم، متوسط و زیاد.
-- **زمان‌بندی:** تعیین تاریخ سررسید برای هر وظیفه.
+- **زمان‌بندی:** تعیین تاریخ و ساعت سررسید برای هر وظیفه.
 - **حفظ امنیت:** سیستم ورود ایمن با اعتبار نشست 4 ساعته.
-- **یادآوری:** امکان نمایش پیام‌های یادآوری برای وظایف مهم.
+- **یادآوری:** امکان نمایش پیام‌های یادآوری برای وظایف مهم همراه با زنگ هشدار.
 - **ذخیره‌سازی محلی:** تمامی داده‌ها به صورت امن در مرورگر ذخیره می‌شوند.
 
 ### ویژگی‌های کلیدی
@@ -22,9 +22,9 @@ TaskFlow is an innovative and dynamic task management application that enables u
 
 - **Task Management:** Add, edit, and delete tasks.
 - **Prioritization:** Set task priorities as low, medium, or high.
-- **Scheduling:** Assign due dates to tasks.
+- **Scheduling:** Assign due dates and times to tasks.
 - **Security:** Secure login system with a 4-hour session validity.
-- **Reminders:** Display reminders for important tasks.
+- **Reminders:** Display reminders for important tasks with an alert sound.
 - **Local Storage:** Safely store all data in the browser.
 
 ### Key Features
@@ -62,7 +62,7 @@ TaskFlow/
    ```
 2. فایل `index.html` را در مرورگر باز کنید.
 3. با وارد کردن نام کاربری و رمز عبور وارد شوید (اطلاعات پیش‌فرض: `admin` و `1234`).
-4. وظایف خود را اضافه، ویرایش یا حذف کنید.
+4. وظایف خود را اضافه، ویرایش یا حذف کنید. تاریخ و ساعت سررسید را نیز مشخص کنید.
 
 
 1. Download or clone the project:
@@ -71,7 +71,7 @@ TaskFlow/
    ```
 2. Open `index.html` in your browser.
 3. Login using the username and password (default: `admin` and `1234`).
-4. Manage your tasks by adding, editing, or deleting them.
+4. Manage your tasks by adding, editing, or deleting them. Set both the date and time for reminders.
 
 ---
 
