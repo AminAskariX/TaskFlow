@@ -1,7 +1,7 @@
 /**
- * TaskFlow - مدیریت وظایف
- * نویسنده: م.امین عسکری
- * وب‌سایت: aminaskarix.ir
+ * TaskFlow
+ * Copyright (c) 2025 M. Amin Askari
+ * Licensed under the MIT License. See LICENSE.
  */
 
 // بررسی ورود کاربر و مدیریت مکانیزم لاگین
