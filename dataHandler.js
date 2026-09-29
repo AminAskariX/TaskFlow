@@ -1,7 +1,7 @@
 /**
- * مدیریت داده‌های TaskFlow
- * نویسنده: م.امین عسکری
- * وب‌سایت: aminaskarix.ir
+ * TaskFlow data helpers
+ * Copyright (c) 2025 M. Amin Askari
+ * Licensed under the MIT License. See LICENSE.
  */
 
 // ذخیره وظایف در localStorage
