@@ -1,6 +1,6 @@
 /**
  * TaskFlow
- * Copyright (c) 2025 M. Amin Askari
+ * Copyright (c) M. Amin Askari
  * Licensed under the MIT License. See LICENSE.
  */
 
