@@ -3,129 +3,107 @@
  * Copyright (c) M. Amin Askari
  * Licensed under the MIT License. See LICENSE.
  */
-
-// بررسی ورود کاربر و مدیریت مکانیزم لاگین
-document.getElementById("loginForm")?.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-
-    // بررسی ساده نام کاربری و رمز عبور (به صورت نمونه)
-    if (username === "admin" && password === "1234") {
-        // ذخیره زمان ورود و انتقال به صفحه وظایف
-        localStorage.setItem("loginTime", new Date().getTime());
-        window.location.href = "tasks.html";
-    } else {
-        document.getElementById("errorMessage").textContent = "نام کاربری یا رمز عبور اشتباه است!";
+const $ = id => document.getElementById(id);
+const storage = window.TaskFlowStorage;
+let tasks = storage.load().map((task, index) => ({
+  ...task, id: task.id || String(Date.now()) + '-' + index, notified: !!task.notified
+}));
+let editingId = null;
+function clearForm() {
+  $('taskForm').reset();
+  editingId = null;
+  $('saveTask').textContent = 'افزودن وظیفه';
+  $('cancelEdit').hidden = true;
+}
+function render() {
+  const list = $('tasksContainer');
+  list.replaceChildren();
+  for (const task of tasks) {
+    const li = document.createElement('li');
+    const label = document.createElement('span');
+    label.textContent = task.title + ' — ' + task.priority + ' — ' + task.dueDate + ' ' + (task.dueTime || '');
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+    const edit = document.createElement('button');
+    edit.textContent = 'ویرایش';
+    edit.onclick = () => {
+      editingId = task.id;
+      $('taskTitle').value = task.title;
+      $('taskPriority').value = task.priority;
+      $('taskDueDate').value = task.dueDate;
+      $('taskTime').value = task.dueTime || '';
+      $('saveTask').textContent = 'ذخیرهٔ تغییرات';
+      $('cancelEdit').hidden = false;
+      $('taskTitle').focus();
+    };
+    const remove = document.createElement('button');
+    remove.textContent = 'حذف';
+    remove.onclick = () => {
+      if (!confirm('این وظیفه حذف شود؟')) return;
+      tasks = tasks.filter(item => item.id !== task.id);
+      if (editingId === task.id) clearForm();
+      if (storage.save(tasks)) render();
+    };
+    actions.append(edit, remove);
+    li.append(label, actions);
+    list.append(li);
+  }
+}
+function checkReminders() {
+  const now = Date.now();
+  let changed = false;
+  for (const task of tasks) {
+    const due = Date.parse(task.dueDate + 'T' + (task.dueTime || ''));
+    if (!task.notified && Number.isFinite(due) && due <= now) {
+      task.notified = true;
+      changed = true;
+      $('reminderStatus').textContent = '⏰ سررسید: ' + task.title;
+      const audio = new Audio('assets/reminder.mp3');
+      audio.play().catch(() => {});
     }
+  }
+  if (changed) storage.save(tasks);
+}
+$('taskForm').addEventListener('submit', event => {
+  event.preventDefault();
+  const title = $('taskTitle').value.trim();
+  const dueDate = $('taskDueDate').value, dueTime = $('taskTime').value;
+  if (!title || !dueDate || !dueTime) return;
+  const previous = tasks.find(task => task.id === editingId);
+  const updated = {
+    id: previous ? previous.id : String(Date.now()) + '-' + Math.random(),
+    title, priority: $('taskPriority').value, dueDate, dueTime,
+    notified: previous && previous.dueDate === dueDate && previous.dueTime === dueTime ? previous.notified : false
+  };
+  if (previous) tasks = tasks.map(task => task.id === previous.id ? updated : task);
+  else tasks.push(updated);
+  if (storage.save(tasks)) { clearForm(); render(); checkReminders(); }
 });
-
-// بررسی زمان ورود و اعتبار نشست
-if (window.location.pathname.endsWith("tasks.html")) {
-    const loginTime = localStorage.getItem("loginTime");
-    const currentTime = new Date().getTime();
-    const sessionDuration = 4 * 60 * 60 * 1000; // 4 ساعت
-
-    if (!loginTime || currentTime - loginTime > sessionDuration) {
-        alert("نشست شما منقضی شده است. لطفاً دوباره وارد شوید.");
-        window.location.href = "index.html";
-    }
-}
-
-// مدیریت وظایف
-const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-function checkReminder(task) {
-    const taskDateTime = new Date(`${task.dueDate}T${task.dueTime}`);
-    const now = new Date();
-
-    // بررسی اگر زمان سررسید فرا رسیده باشد
-    if (taskDateTime <= now) {
-        alert(`یادآور: وظیفه "${task.title}" اکنون سررسید شده است!`);
-        playReminderSound();
-    }
-}
-
-// پخش صدای یادآور
-function playReminderSound() {
-    const audio = new Audio('assets/reminder.mp3');
-    audio.play();
-}
-
-
-// نمایش وظایف
-function renderTasks() {
-    const tasksContainer = document.getElementById("tasksContainer");
-    if (!tasksContainer) return;
-
-    tasksContainer.innerHTML = "";
-    tasks.forEach((task, index) => {
-        const taskItem = document.createElement("li");
-        taskItem.innerHTML = `
-            <span>${task.title} - ${task.priority} - ${task.dueDate} ${task.dueTime}</span>
-            <div class="actions">
-                <button class="edit-btn" onclick="editTask(${index})">ویرایش</button>
-                <button class="delete-btn" onclick="deleteTask(${index})">حذف</button>
-            </div>
-        `;
-        tasksContainer.appendChild(taskItem);
-
-        // بررسی زمان یادآور
-        checkReminder(task);
-    });
-}
-
-
-// افزودن وظیفه جدید
-document.getElementById("taskForm")?.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const title = document.getElementById("taskTitle").value.trim();
-    const priority = document.getElementById("taskPriority").value;
-    const dueDate = document.getElementById("taskDueDate").value;
-    const dueTime = document.getElementById("taskTime").value;
-
-    if (title && priority && dueDate && dueTime) {
-        tasks.push({ title, priority, dueDate, dueTime });
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        renderTasks();
-        alert("وظیفه با موفقیت اضافه شد!");
-        this.reset();
-    } else {
-        alert("لطفاً همه فیلدها را پر کنید.");
-    }
+$('cancelEdit').onclick = clearForm;
+$('exportTasks').onclick = () => {
+  const blob = new Blob([JSON.stringify(tasks, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob), link = document.createElement('a');
+  link.href = url; link.download = 'taskflow-backup.json'; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+$('importTasks').onchange = async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    const data = JSON.parse(await file.text());
+    if (!Array.isArray(data) || !data.every(item =>
+      typeof item.title === 'string' && typeof item.dueDate === 'string' &&
+      typeof item.dueTime === 'string' && ['low','medium','high'].includes(item.priority)))
+      throw Error('invalid');
+    if (!confirm('وظایف فعلی با فایل پشتیبان جایگزین شوند؟')) return;
+    tasks = data.map((item, index) => ({...item, id: String(item.id || Date.now() + '-' + index), notified: !!item.notified}));
+    if (storage.save(tasks)) { clearForm(); render(); checkReminders(); }
+  } catch { alert('فایل پشتیبان معتبر نیست.'); }
+  finally { event.target.value = ''; }
+};
+window.addEventListener('focus', checkReminders);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) checkReminders(); });
+window.addEventListener('storage', event => {
+  if (event.key === 'tasks') { tasks = storage.load(); render(); checkReminders(); }
 });
-
-// حذف وظیفه
-function deleteTask(index) {
-    if (confirm("آیا مطمئن هستید که می‌خواهید این وظیفه را حذف کنید؟")) {
-        tasks.splice(index, 1);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        renderTasks();
-        alert("وظیفه با موفقیت حذف شد!");
-    }
-}
-
-// ویرایش وظیفه
-function editTask(index) {
-    const task = tasks[index];
-    const newTitle = prompt("عنوان جدید را وارد کنید:", task.title);
-    const newPriority = prompt("اولویت جدید (low, medium, high):", task.priority);
-    const newDueDate = prompt("تاریخ جدید (YYYY-MM-DD):", task.dueDate);
-
-    if (newTitle && newPriority && newDueDate) {
-        tasks[index] = { title: newTitle, priority: newPriority, dueDate: newDueDate };
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        renderTasks();
-        alert("وظیفه با موفقیت ویرایش شد!");
-    }
-}
-
-// خروج کاربر
-document.getElementById("logoutButton")?.addEventListener("click", function () {
-    localStorage.removeItem("loginTime");
-    window.location.href = "index.html";
-});
-
-// بارگذاری وظایف در صفحه مدیریت
-renderTasks();
+render(); checkReminders(); setInterval(checkReminders, 30000);
